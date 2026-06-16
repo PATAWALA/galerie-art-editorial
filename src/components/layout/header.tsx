@@ -4,10 +4,10 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
+// Liens centraux sans Boutique (évite la redondance)
 const links = [
   { href: "/", label: "Accueil" },
   { href: "/gallery", label: "Galerie" },
-  { href: "/boutique", label: "Boutique" },
   { href: "/about", label: "À propos" },
   { href: "/contact", label: "Contact" },
 ];
@@ -24,7 +24,6 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Couleurs selon l’état
   const isTransparent = isHome && !scrolled;
   const bgHeader = isTransparent
     ? "bg-transparent"
@@ -49,7 +48,7 @@ export default function Header() {
             </Link>
           </div>
 
-          {/* Navigation desktop */}
+          {/* Navigation desktop (sans Boutique) */}
           <nav className="hidden md:flex md:items-center md:gap-10">
             {links.map((link) => (
               <Link
@@ -66,7 +65,7 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Bouton Boutique desktop */}
+          {/* Bouton Boutique desktop (inchangé) */}
           <div className="flex-1 hidden md:flex justify-end">
             <Link
               href="/boutique"
@@ -89,12 +88,13 @@ export default function Header() {
         </div>
       </header>
 
-      {/* Overlay mobile (portail) */}
+      {/* Overlay mobile */}
       <div
         className={`fixed inset-0 z-40 flex flex-col items-center justify-center gap-10 bg-[#FBFBFA] transition-all duration-500 md:hidden ${
           mobileOpen ? "visible opacity-100" : "invisible opacity-0"
         }`}
       >
+        {/* Liens principaux (sans Boutique) */}
         {links.map((link) => (
           <Link
             key={link.href}
@@ -105,6 +105,17 @@ export default function Header() {
             {link.label}
           </Link>
         ))}
+
+        {/* Bouton Boutique distinct en bas */}
+        <div className="absolute bottom-12 left-0 right-0 flex justify-center px-6">
+          <Link
+            href="/boutique"
+            onClick={() => setMobileOpen(false)}
+            className="w-full max-w-xs text-center bg-[#A3907F] text-[#FBFBFA] py-4 text-sm uppercase tracking-[0.3em] transition-all hover:bg-[#8B7A6E]"
+          >
+            Boutique
+          </Link>
+        </div>
       </div>
     </>
   );
