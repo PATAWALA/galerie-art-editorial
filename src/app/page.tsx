@@ -22,13 +22,38 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <GalleryGrid />
-      <section className="bg-[#1A1A1A] px-6 py-24 md:py-32">
+
+      {/* Section Œuvres récentes */}
+      <section className="bg-[#FBFBFA] px-6 py-24 md:py-32">
         <div className="mx-auto max-w-screen-2xl">
-          <h2 className="mb-16 text-center font-serif text-4xl font-light italic text-[#FBFBFA] md:text-5xl">
-            Articles & Réflexions
-          </h2>
-          <div className="grid gap-8 md:grid-cols-2">
+          <div className="mb-16 flex flex-col items-center text-center">
+            <div className="h-px w-12 bg-[#A3907F]" />
+            <h2 className="mt-6 font-serif text-4xl font-light italic text-[#1A1A1A] md:text-5xl">
+              Œuvres récentes
+            </h2>
+            <p className="mt-4 max-w-xl text-sm leading-relaxed text-[#1A1A1A]/60">
+              Une sélection de photographies en noir et blanc issues des
+              dernières séries.
+            </p>
+          </div>
+          <GalleryGrid />
+        </div>
+      </section>
+
+      {/* Section Articles & Réflexions */}
+      <section className="border-t border-[#A3907F]/10 bg-[#FBFBFA] px-6 py-24 md:py-32">
+        <div className="mx-auto max-w-screen-2xl">
+          <div className="mb-16 flex flex-col items-center text-center">
+            <div className="h-px w-12 bg-[#A3907F]" />
+            <h2 className="mt-6 font-serif text-4xl font-light italic text-[#1A1A1A] md:text-5xl">
+              Articles & Réflexions
+            </h2>
+            <p className="mt-4 max-w-xl text-sm leading-relaxed text-[#1A1A1A]/60">
+              Lectures, entretiens et carnets de recherche autour de la
+              photographie et de la médiation.
+            </p>
+          </div>
+          <div className="grid gap-10 md:grid-cols-2">
             {editorialItems.map((item) => (
               <EditorialCard key={item.slug} {...item} />
             ))}

@@ -1,5 +1,6 @@
 // src/app/(site)/gallery/page.tsx
 import { createClient } from "@/lib/supabase/server";
+import ImageComponent from "@/components/shared/image-component";
 
 
 export const metadata = {
@@ -37,23 +38,22 @@ export default async function GalleryPage() {
         <div className="mx-auto max-w-screen-2xl">
           <div className="grid auto-rows-[200px] grid-cols-2 gap-1 md:grid-cols-3">
             {works.map((work: any) => (
-              <div
-                key={work.id}
-                className={`group relative ${work.aspect || "aspect-square"} overflow-hidden`}
-              >
-                <img
-                  src={work.image_url}
-                  alt={work.title}
-                  className="h-full w-full object-cover transition-all duration-700 group-hover:scale-105 group-hover:grayscale-[30%]"
-                />
-                <div className="absolute inset-0 bg-charcoal/20 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                <div className="absolute bottom-4 left-4 translate-y-4 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-                  <span className="font-serif text-xs uppercase tracking-[0.2em] text-ivory">
-                    {work.title}
-                  </span>
-                </div>
-              </div>
-            ))}
+  <div key={work.id} className="group relative aspect-square overflow-hidden">
+    <ImageComponent
+      src={work.image_url}
+      alt={work.title}
+      fill
+      className="object-cover transition-all duration-700 group-hover:scale-105"
+      sizes="(max-width: 768px) 100vw, 50vw"
+    />
+    <div className="absolute inset-0 bg-[#1A1A1A]/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+    <div className="absolute bottom-4 left-4 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+      <span className="font-serif text-xs uppercase tracking-[0.2em] text-[#FBFBFA] drop-shadow-lg">
+        {work.title}
+      </span>
+    </div>
+  </div>
+))}
           </div>
         </div>
       </section>

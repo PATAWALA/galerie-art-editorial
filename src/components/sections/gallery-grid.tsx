@@ -13,9 +13,6 @@ export default function GalleryGrid() {
   return (
     <section className="px-6 py-24 md:py-32">
       <div className="mx-auto max-w-screen-2xl">
-        <h2 className="mb-16 text-center font-serif text-4xl font-light italic text-charcoal md:text-5xl">
-          Œuvres récentes
-        </h2>
         <div className="grid auto-rows-[200px] grid-cols-2 gap-1 md:grid-cols-3">
           {placeholderImages.map((img, idx) => (
             <div
