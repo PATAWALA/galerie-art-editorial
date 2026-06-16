@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 
 const links = [
@@ -14,6 +15,10 @@ const links = [
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
+
+  // Détecte si on est sur la page d'accueil (fond sombre du hero)
+  const isHome = pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -21,14 +26,18 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Couleurs dynamiques : blanc sur fond transparent, noir sur fond clair
-  const textColor = scrolled ? "text-[#1A1A1A]" : "text-[#FBFBFA]";
-  const borderColor = scrolled
-    ? "border-[#A3907F]/10"
-    : "border-transparent";
-  const bgHeader = scrolled
-    ? "bg-[#FBFBFA]/95 backdrop-blur-md shadow-sm"
-    : "bg-transparent";
+  // Style selon la position et la page
+  // Sur la home : transparent en haut, opaque au scroll
+  // Sur les autres pages : toujours opaque (fond clair)
+  const isTransparent = isHome && !scrolled;
+
+  const bgHeader = isTransparent
+    ? "bg-transparent"
+    : "bg-[#FBFBFA]/95 backdrop-blur-md shadow-sm";
+  const borderColor = isTransparent ? "border-transparent" : "border-[#A3907F]/10";
+  const textColor = isTransparent ? "text-[#FBFBFA]" : "text-[#1A1A1A]";
+  const textHover = isTransparent ? "hover:text-[#FBFBFA]" : "hover:text-[#A3907F]";
+  const logoLineColor = isTransparent ? "bg-[#FBFBFA]/60" : "bg-[#A3907F]";
 
   return (
     <header
@@ -38,11 +47,7 @@ export default function Header() {
         {/* Logo / Signature */}
         <div className="flex-1">
           <Link href="/" className="inline-flex items-center gap-3 group">
-            <span
-              className={`h-5 w-px transition-colors duration-500 ${
-                scrolled ? "bg-[#A3907F]" : "bg-[#FBFBFA]/60"
-              }`}
-            />
+            <span className={`h-5 w-px transition-colors duration-500 ${logoLineColor}`} />
             <span
               className={`font-serif text-2xl font-light italic tracking-wide transition-colors duration-500 ${textColor} group-hover:text-[#A3907F]`}
             >
@@ -58,9 +63,9 @@ export default function Header() {
               key={link.href}
               href={link.href}
               className={`text-sm uppercase tracking-[0.2em] transition-colors duration-500 ${
-                scrolled
-                  ? "text-[#1A1A1A]/80 hover:text-[#A3907F]"
-                  : "text-[#FBFBFA]/80 hover:text-[#FBFBFA]"
+                isTransparent
+                  ? "text-[#FBFBFA]/80 hover:text-[#FBFBFA]"
+                  : "text-[#1A1A1A]/80 hover:text-[#A3907F]"
               }`}
             >
               {link.label}
@@ -68,7 +73,7 @@ export default function Header() {
           ))}
         </nav>
 
-        {/* Bouton Boutique à droite (toujours visible) */}
+        {/* Bouton Boutique à droite */}
         <div className="flex-1 hidden md:flex justify-end">
           <Link
             href="/boutique"
@@ -87,17 +92,17 @@ export default function Header() {
           >
             <span
               className={`block h-0.5 w-7 transition-all ${
-                scrolled ? "bg-[#1A1A1A]" : "bg-[#FBFBFA]"
+                isTransparent ? "bg-[#FBFBFA]" : "bg-[#1A1A1A]"
               } ${mobileOpen ? "translate-y-[5px] rotate-45" : ""}`}
             />
             <span
               className={`block h-0.5 w-7 transition-all ${
-                scrolled ? "bg-[#1A1A1A]" : "bg-[#FBFBFA]"
+                isTransparent ? "bg-[#FBFBFA]" : "bg-[#1A1A1A]"
               } ${mobileOpen ? "opacity-0" : ""}`}
             />
             <span
               className={`block h-0.5 w-7 transition-all ${
-                scrolled ? "bg-[#1A1A1A]" : "bg-[#FBFBFA]"
+                isTransparent ? "bg-[#FBFBFA]" : "bg-[#1A1A1A]"
               } ${mobileOpen ? "-translate-y-[5px] -rotate-45" : ""}`}
             />
           </button>
