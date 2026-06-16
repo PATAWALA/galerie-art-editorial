@@ -1,3 +1,4 @@
+// src/app/boutique/[slug]/page.tsx
 import { createClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
 import ImageComponent from "@/components/shared/image-component";
@@ -21,9 +22,10 @@ export default async function BoutiqueDetailPage({ params }: { params: Promise<{
     .eq("slug", slug)
     .single();
 
-  // Fallback pour démonstration, aligné sur l'univers de Mylène Sauvegrain
+  // Fallback pour démonstration, aligné sur l’univers de Mylène Sauvegrain
   const fallbackProduct: CatalogueProduct = {
     id: slug,
+    slug: slug, // ← propriété ajoutée
     type: slug.includes("kit") ? "ressource" : "tirage",
     title: slug.replace(/-/g, " "),
     description:
@@ -98,7 +100,7 @@ export default async function BoutiqueDetailPage({ params }: { params: Promise<{
               )}
             </div>
 
-            {/* Bouton d'acquisition (lien vers contact ou futur système de paiement) */}
+            {/* Bouton d’acquisition */}
             <div className="mt-8">
               <a
                 href={`mailto:contact@mylenesauvegrain.fr?subject=Acquisition : ${displayProduct.title}`}
