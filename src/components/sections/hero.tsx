@@ -23,9 +23,9 @@ export default function Hero() {
           La tendresse <br />à l’état sauvage
         </h1>
         <p className="mx-auto mt-8 max-w-xl text-base font-light tracking-wide text-[#FBFBFA]/80 md:text-lg">
-          Mylène Sauvegrain capte le geste animal avec la rigueur de
-          l’éthologue et la sensibilité de l’artiste. Photographies d’art,
-          médiation culturelle et ressources pédagogiques.
+            Diplômée de la Sorbonne, Mylène Sauvegrain conjugue le regard de
+            l’éthologue et la main de l’artiste pour révéler la sensibilité animale.
+            Tirages d’art, médiation culturelle, ressources pédagogiques.
         </p>
 
         {/* Deux boutons superposés, largeurs différentes */}
