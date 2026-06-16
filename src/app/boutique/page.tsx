@@ -1,7 +1,5 @@
-// src/app/boutique/page.tsx
 import { createClient } from "@/lib/supabase/server";
 import ProductCard from "@/components/sections/product-card";
-
 import type { CatalogueProduct } from "@/types";
 
 export const metadata = {
@@ -17,7 +15,7 @@ export default async function BoutiquePage() {
     .select("*")
     .order("created_at", { ascending: false });
 
-  // En l’absence de base de données, nous utilisons des données statiques alignées.
+  // Fallback aligné sur l'univers de Mylène Sauvegrain
   const fallbackProducts: CatalogueProduct[] = [
     {
       id: "1",
@@ -53,7 +51,7 @@ export default async function BoutiquePage() {
   return (
     <main className="min-h-screen bg-[#FBFBFA] pt-28 pb-24 px-6">
       <div className="mx-auto max-w-screen-xl">
-        {/* Introduction */}
+        {/* Introduction éditoriale */}
         <div className="mb-20 text-center">
           <div className="mx-auto mb-8 h-px w-16 bg-[#A3907F]" />
           <h1 className="font-serif text-4xl font-light italic text-[#1A1A1A] md:text-5xl">

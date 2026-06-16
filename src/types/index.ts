@@ -10,9 +10,9 @@ export interface Product {
   price: number; // en euros
   image_url: string;
   slug: string;
-  details?: string; // dimensions, papier, format, etc.
+  details?: string; // résumé technique
   created_at: string;
-  // Champs optionnels pour les spécificités
+  // Champs spécifiques optionnels
   tirage_details?: {
     dimensions: string;
     paper: string;
@@ -26,24 +26,5 @@ export interface Product {
   };
 }
 
-export interface Tirage extends Product {
-  type: "tirage";
-  tirage_details: {
-    dimensions: string;
-    paper: string;
-    edition: string; // ex: "Série limitée à 150 exemplaires"
-    signed: boolean;
-  };
-}
-
-export interface RessourceNumerique extends Product {
-  type: "ressource";
-  ressource_details: {
-    format: "PDF" | "EPUB";
-    pages: number;
-    download_link?: string;
-  };
-}
-
-// Utile pour l'affichage catalogue
-export type CatalogueProduct = Tirage | RessourceNumerique;
+// Type utilisé dans toute la boutique
+export type CatalogueProduct = Product;

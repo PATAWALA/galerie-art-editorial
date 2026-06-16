@@ -3,11 +3,7 @@ import Link from "next/link";
 import ImageComponent from "@/components/shared/image-component";
 import type { CatalogueProduct } from "@/types";
 
-export default function ProductCard({
-  product,
-}: {
-  product: CatalogueProduct;
-}) {
+export default function ProductCard({ product }: { product: CatalogueProduct }) {
   const isTirage = product.type === "tirage";
 
   return (
