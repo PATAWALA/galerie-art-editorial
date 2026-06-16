@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -6,36 +7,43 @@ export default function Hero() {
       {/* Image de fond */}
       <div className="absolute inset-0 scale-105 animate-[zoom_20s_ease-in-out_infinite]">
         <Image
-          src="/images/hero-exposition.jpg" // Placez votre image dans public/images
-          alt="Exposition artistique"
+          src="/images/hero-exposition.jpg"
+          alt="Photographie en noir et blanc d'un cheval, Mylène Sauvegrain"
           fill
           className="object-cover"
           priority
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-charcoal/40 backdrop-grayscale-[20%]" />
+        <div className="absolute inset-0 bg-[#1A1A1A]/40 backdrop-grayscale-[20%]" />
       </div>
 
       {/* Contenu éditorial */}
-      <div className="relative z-10 max-w-4xl px-6 text-center text-ivory animate-fade-up">
-        <h1 className="font-serif text-6xl font-light italic leading-tight md:text-8xl">
-          L&apos;essence <br /> de l&apos;éphémère
+      <div className="relative z-10 max-w-4xl px-6 text-center text-[#FBFBFA] animate-fade-up">
+        <h1 className="font-serif text-5xl font-light italic leading-tight md:text-7xl">
+          La tendresse <br />à l’état sauvage
         </h1>
-        <p className="mx-auto mt-8 max-w-xl text-lg font-light tracking-wider text-gold-100/80 md:text-xl">
-          Une immersion photographique entre ombre et lumière, capturée par
-          l&apos;œil de la matière.
+        <p className="mx-auto mt-8 max-w-xl text-base font-light tracking-wide text-[#FBFBFA]/80 md:text-lg">
+          Mylène Sauvegrain capte le geste animal avec la rigueur de
+          l’éthologue et la sensibilité de l’artiste. Photographies d’art,
+          médiation culturelle et ressources pédagogiques.
         </p>
-        <div className="mt-12">
-          <a
+
+        {/* Deux boutons superposés, largeurs différentes */}
+        <div className="mt-12 flex flex-col items-center gap-4">
+          <Link
             href="/gallery"
-            className="inline-block border border-gold-300/60 px-10 py-4 text-sm uppercase tracking-[0.3em] text-ivory transition-all duration-500 hover:border-gold-300 hover:bg-gold-300/10 hover:backdrop-blur-md"
+            className="inline-block border border-[#A3907F]/60 px-10 py-4 text-sm uppercase tracking-[0.3em] text-[#FBFBFA] transition-all duration-500 hover:border-[#A3907F] hover:bg-[#A3907F]/10 hover:backdrop-blur-md"
           >
-            Découvrir
-          </a>
+            Voir la galerie
+          </Link>
+          <Link
+            href="/boutique"
+            className="inline-block bg-[#A3907F] text-[#FBFBFA] px-12 py-4 text-sm uppercase tracking-[0.3em] transition-all duration-500 hover:bg-[#8B7A6E] hover:shadow-lg"
+          >
+            Boutique & Éditions
+          </Link>
         </div>
       </div>
     </section>
   );
 }
-
-/* Animation zoom keyframe (à placer dans globals.css si vous préférez) */

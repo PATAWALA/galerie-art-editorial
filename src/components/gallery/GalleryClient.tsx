@@ -28,9 +28,7 @@ export default function GalleryClient({ images }: { images: GalleryImage[] }) {
               alt={img.alt}
               className="w-full h-auto block transition-transform duration-700 group-hover:scale-105"
             />
-            {/* Overlay au survol */}
             <div className="absolute inset-0 bg-[#1A1A1A]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-            {/* Légende + lien vers la page détail */}
             <div className="absolute bottom-4 left-4 right-4 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 flex justify-between items-end">
               <span className="font-serif text-xs uppercase tracking-[0.2em] text-[#FBFBFA] drop-shadow-md">
                 {img.alt}
@@ -49,7 +47,6 @@ export default function GalleryClient({ images }: { images: GalleryImage[] }) {
         ))}
       </div>
 
-      {/* Lightbox pour agrandir et naviguer */}
       <GalleryLightbox
         images={images}
         currentIndex={lightboxIndex}
