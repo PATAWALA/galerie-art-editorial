@@ -21,16 +21,11 @@ export default function ImageComponent({
   className = "",
   sizes = "100vw",
   priority = false,
-  width,
-  height,
+  width = 800,
+  height = 600,
 }: ImageComponentProps) {
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const baseClasses = `transition-all duration-1000 ${
-    isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-105"
-  }`;
-
-  // Si une image manque, un fond taupe discret s’affiche.
   if (!src || src.trim() === "") {
     return (
       <div
@@ -45,13 +40,17 @@ export default function ImageComponent({
     );
   }
 
+  const baseClasses = `transition-all duration-1000 ${
+    isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-105"
+  } ${className}`;
+
   if (fill) {
     return (
       <Image
         src={src}
         alt={alt}
         fill
-        className={`object-cover ${baseClasses} ${className}`}
+        className={baseClasses}
         sizes={sizes}
         priority={priority}
         onLoad={() => setIsLoaded(true)}
@@ -63,9 +62,9 @@ export default function ImageComponent({
     <Image
       src={src}
       alt={alt}
-      width={width || 800}
-      height={height || 600}
-      className={`object-cover ${baseClasses} ${className}`}
+      width={width}
+      height={height}
+      className={`w-full h-auto ${baseClasses}`}
       sizes={sizes}
       priority={priority}
       onLoad={() => setIsLoaded(true)}

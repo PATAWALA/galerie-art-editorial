@@ -1,50 +1,79 @@
-// src/app/(site)/gallery/[slug]/page.tsx
 import { createClient } from "@/lib/supabase/server";
-import { notFound } from "next/navigation";
+import ImageComponent from "@/components/shared/image-component";
+import Link from "next/link";
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
   return {
-    title: `Œuvre : ${params.slug}`,
+    title: `${slug.replace(/-/g, " ")} | Galerie`,
   };
 }
 
-export default async function GalleryDetailPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
+export default async function GalleryDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+
   const supabase = await createClient();
   const { data: work } = await supabase
     .from("gallery")
     .select("*")
-    .eq("slug", params.slug)
+    .eq("slug", slug)
     .single();
 
-  if (!work) notFound();
+  // Fallback de démonstration si aucune œuvre n'est trouvée
+  const fallbackWork = {
+    title: slug.replace(/-/g, " "),
+    image_url: "/images/galerie-1.jpg",
+    description: "Photographie originale en noir et blanc, tirage limité à 150 exemplaires, numéroté et signé.",
+    technique: "Argentique, papier baryté",
+    dimensions: "30 × 40 cm",
+    year: "2025",
+  };
+
+  const displayWork = work || fallbackWork;
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center px-6 pt-24">
-      <div className="max-w-4xl">
-        <figure className="relative mb-12">
-          <img
-            src={work.image_url}
-            alt={work.title}
-            className="max-h-[70vh] w-full object-contain"
+    <main className="min-h-screen bg-[#FBFBFA] pt-28 pb-24 px-6">
+      <div className="mx-auto max-w-4xl">
+        {/* Filet taupe */}
+        <div className="mb-8 h-px w-16 bg-[#A3907F]" />
+
+        {/* Image en grand */}
+        <div className="relative aspect-[4/5] md:aspect-[16/9] overflow-hidden">
+          <ImageComponent
+            src={displayWork.image_url}
+            alt={displayWork.title}
+            fill
+            className="object-contain bg-[#1A1A1A]/5"
+            sizes="100vw"
+            priority
           />
-          <figcaption className="mt-6 text-center">
-            <h1 className="font-serif text-3xl font-light italic text-charcoal md:text-4xl">
-              {work.title}
-            </h1>
-            <p className="mt-4 text-sm text-charcoal/60">{work.description}</p>
-          </figcaption>
-        </figure>
-        <div className="flex justify-center">
-          <a
+        </div>
+
+        {/* Informations */}
+        <div className="mt-10 text-center">
+          <h1 className="font-serif text-3xl md:text-5xl font-light italic text-[#1A1A1A]">
+            {displayWork.title}
+          </h1>
+          <p className="mt-6 text-base leading-relaxed text-[#1A1A1A]/70 max-w-2xl mx-auto">
+            {displayWork.description}
+          </p>
+
+          {/* Métadonnées */}
+          <div className="mt-8 flex justify-center gap-8 text-xs uppercase tracking-[0.2em] text-[#A3907F]">
+            {displayWork.technique && <span>{displayWork.technique}</span>}
+            {displayWork.dimensions && <span>{displayWork.dimensions}</span>}
+            {displayWork.year && <span>{displayWork.year}</span>}
+          </div>
+        </div>
+
+        {/* Retour */}
+        <div className="mt-16 text-center">
+          <Link
             href="/gallery"
-            className="border-b border-gold-500 pb-1 text-xs uppercase tracking-[0.2em] text-gold-700 transition hover:text-gold-900"
+            className="inline-block border-b border-[#A3907F]/60 pb-1 text-sm uppercase tracking-[0.2em] text-[#A3907F] transition-colors hover:text-[#1A1A1A] hover:border-[#1A1A1A]"
           >
             Retour à la galerie
-          </a>
+          </Link>
         </div>
       </div>
     </main>

@@ -1,0 +1,51 @@
+import EditorialCard from "@/components/sections/editorial-card";
+
+const editorialItems = [
+  {
+    title: "Lumière silencieuse",
+    excerpt:
+      "Une exploration des paysages intérieurs à travers le prisme de la photographie argentique.",
+    imageSrc: "/images/editorial-1.jpg",
+    slug: "/editorial/lumiere-silencieuse",
+  },
+  {
+    title: "Matières premières",
+    excerpt:
+      "Quand la texture devient langage – une série d’impressions sur papier washi.",
+    imageSrc: "/images/editorial-2.jpg",
+    slug: "/editorial/matieres-premieres",
+  },
+  {
+    title: "Le geste animal",
+    excerpt:
+      "Ce que la tendresse équine nous apprend de la médiation thérapeutique.",
+    imageSrc: "/images/editorial-3.jpg",
+    slug: "/editorial/le-geste-animal",
+  },
+];
+
+export default function EditorialPreview() {
+  return (
+    <section className="border-t border-[#A3907F]/10 bg-[#FBFBFA] px-6 py-24 md:py-32">
+      <div className="mx-auto max-w-screen-2xl">
+        {/* En-tête de section */}
+        <div className="mb-16 flex flex-col items-center text-center">
+          <div className="h-px w-12 bg-[#A3907F]" />
+          <h2 className="mt-6 font-serif text-4xl font-light italic text-[#1A1A1A] md:text-5xl">
+            Articles & Réflexions
+          </h2>
+          <p className="mt-4 max-w-xl text-sm leading-relaxed text-[#1A1A1A]/60">
+            Lectures, entretiens et carnets de recherche autour de la photographie et de la médiation.
+          </p>
+        </div>
+
+        {/* Grille 3 colonnes sur desktop */}
+        <div className="grid gap-10 md:grid-cols-3">
+          {editorialItems.map((item) => (
+            <EditorialCard key={item.slug} {...item} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
