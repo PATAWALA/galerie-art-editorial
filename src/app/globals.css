@@ -1,26 +1,57 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Thème ultra-premium – palette froide, or vieilli, typographie Serif */
+@theme {
+  --color-ivory: #f8f7f4;
+  --color-charcoal: #1e1e1e;
+  --color-slate-950: #0b0e11;
+  --color-gold-100: #f7f3e8;
+  --color-gold-300: #d4b88e;
+  --color-gold-500: #b38b59;
+  --color-gold-700: #7a5c3a;
+  --font-serif: "Playfair Display", "Times New Roman", serif;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --animate-fade-up: fade-up 1s ease-out;
+  --animate-reveal: reveal 0.8s ease-out both;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Animations personnalisées */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
+@keyframes reveal {
+  from {
+    opacity: 0;
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* Styles de base raffinés */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  background-color: var(--color-ivory);
+  color: var(--color-charcoal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: var(--color-gold-300);
+  color: var(--color-ivory);
+}
+@keyframes zoom {
+  0%, 100% { transform: scale(1.05); }
+  50% { transform: scale(1); }
 }
